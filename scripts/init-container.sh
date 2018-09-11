@@ -1,13 +1,22 @@
 #!/bin/bash
-
-
-echo "Create Influxdb telegraf database"
-RUN curl  --silent --output /dev/null -POST 'http://127.0.0.1:8086/query?pretty=true' --data-urlencode "q=CREATE DATABASE telegraf"
+echo "Run Supervisord"
+/usr/bin/supervisord
 
 
 echo "Create Influxdb DataCore database"
-RUN curl  --silent --output /dev/null -POST 'http://127.0.0.1:8086/query?pretty=true' --data-urlencode "q=CREATE DATABASE DataCoreRestDB"
+curl  --silent --output /dev/null -POST 'http://127.0.0.1:8086/query?pretty=true' --data-urlencode "q=CREATE DATABASE DataCoreRestDB WITH DURATION 6w REPLICATION 1"
 
-
-echo "Run Supervisord"
-/usr/bin/supervisord
+echo "Create Grafana Data Source"
+curl --silent --output /dev/null  -X POST \
+  http://127.0.0.1:3000/api/datasources \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Basic Z3JhZmFuYTpncmFmYW5h' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name":"DataCoreRestDB",
+  "type":"influxdb",
+  "url":"http://localhost:8086",
+  "database":"DataCoreRestDB",
+  "access":"proxy"
+}'
