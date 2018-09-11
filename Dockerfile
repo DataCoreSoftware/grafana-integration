@@ -63,7 +63,7 @@ RUN mkdir -p /var/log/supervisor && \
     mkdir .ssh
 
 COPY ssh/authorized_keys .ssh/authorized_keys
-COPY bash/profile .profile
+COPY bash/bashrc .bashrc
 
 
 # Configure MySql
