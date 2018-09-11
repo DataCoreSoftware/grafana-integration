@@ -99,10 +99,11 @@ RUN wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_${G
 # Configure Grafana
 COPY grafana/grafana.ini /etc/grafana/grafana.ini
 
-# Configure DataCore Perf Monitor
+# Copy files for DataCore
 COPY datacore/datacore_get_perf.py /etc/datacore/datacore_get_perf.py
 COPY datacore/datacore_get_perf.ini /etc/datacore/datacore_get_perf.ini
 COPY system/datacore-cron /etc/cron.d/datacore-cron
+COPY scripts/init-container.sh /tmp/init-container.sh
 RUN chmod 0644 /etc/cron.d/datacore-cron
 
 
@@ -111,4 +112,4 @@ RUN chmod 0644 /etc/cron.d/datacore-cron
 RUN apt-get clean && \
  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/bin/bash", "/tmp/init-container.sh"]
