@@ -103,7 +103,7 @@ COPY grafana/grafana.ini /etc/grafana/grafana.ini
 COPY datacore/datacore_get_perf.py /etc/datacore/datacore_get_perf.py
 COPY datacore/datacore_get_perf.ini /etc/datacore/datacore_get_perf.ini
 COPY system/datacore-cron /tmp/datacore-cron
-COPY scripts/init-container.sh /tmp/init-container.sh
+COPY scripts/init-container.sh /etc/datacore/init-container.sh
 RUN echo /tmp/datacore-cron >> /etc/crontab
 
 
@@ -112,4 +112,4 @@ RUN echo /tmp/datacore-cron >> /etc/crontab
 RUN apt-get clean && \
  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-CMD ["/bin/bash", "/tmp/init-container.sh"]
+CMD ["/usr/bin/supervisord"]
