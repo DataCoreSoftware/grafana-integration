@@ -45,6 +45,7 @@ RUN apt-get -y update && \
   python-configparser \
   python-concurrent.futures \
   python-requests \
+  cron \
   wget && \
  curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
  apt-get install -y nodejs
