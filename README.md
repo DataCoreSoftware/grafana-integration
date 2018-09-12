@@ -2,7 +2,7 @@
 
 [![Docker Automated Build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/lblanc/docker-influxdb-grafana-datacore/builds/)
 
-[![Docker Build Status](https://img.shields.io/docker/build/jrottenberg/ffmpeg.svg](https://hub.docker.com/r/lblanc/docker-influxdb-grafana-datacore/builds/)
+[https://dockerbuildbadges.quelltext.eu/status.svg?organization=lblanc&repository=docker-influxdb-grafana-datacore](https://hub.docker.com/r/lblanc/docker-influxdb-grafana-datacore/builds/)
 
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://octopress.mit-license.org)
 
