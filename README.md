@@ -1,6 +1,6 @@
 # Docker Image with Telegraf, InfluxDB and Grafana with [DataCore SANsymphony](http://www.datacore.com) 's dashboard & REST script included
 
-```html
+
 <svg width="212px" height="41px" viewBox="0 0 212 41" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g fill-rule="nonzero">
     <polygon fill="#00BCBC" points="0 18 0 12.8905941 17.9997302 12.8905941 17.9997302 0 36 18"></polygon>
@@ -19,7 +19,7 @@
     </g>
   </g>
 </svg>
-```
+
 
 [![](https://dockerbuildbadges.quelltext.eu/status.svg?organization=lblanc&repository=docker-influxdb-grafana-datacore)](https://hub.docker.com/r/lblanc/docker-influxdb-grafana-datacore/builds/)
 
