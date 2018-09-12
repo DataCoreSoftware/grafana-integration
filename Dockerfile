@@ -104,8 +104,8 @@ COPY datacore/datacore_get_perf.py /etc/datacore/datacore_get_perf.py
 COPY datacore/datacore_get_perf.ini /etc/datacore/datacore_get_perf.ini
 COPY system/datacore-cron /etc/cron.d/datacore-cron
 RUN chmod 0644 /etc/cron.d/datacore-cron
-COPY scripts/init-container.sh /etc/datacore/init-container.sh
-RUN /etc/datacore/init-container.sh
+COPY scripts/config.sh /etc/datacore/config.sh
+
 
 
 # Cleanup
