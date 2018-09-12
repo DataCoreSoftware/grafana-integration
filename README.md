@@ -28,10 +28,11 @@ docker run --ulimit nofile=66000:66000 \
 ```
 
 After the first run, connect in ssh to container and run config.sh with these parameters:
--r -> DataCore REST server IP
--d -> DataCore Server IP
--u -> DataCore User
--p -> DataCore Password
+
+* -r -> DataCore REST server IP
+* -d -> DataCore Server IP
+* -u -> DataCore User
+* -p -> DataCore Password
 
 Ex:
 ```sh
