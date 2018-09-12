@@ -1,6 +1,6 @@
 # Docker Image with Telegraf, InfluxDB and Grafana with [DataCore SANsymphony](http://www.datacore.com) 's dashboard & REST script included
 
-
+[![Docker Automated Build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/lblanc/docker-influxdb-grafana-datacore/builds/)
 
 [![Docker Build Status](https://img.shields.io/docker/build/jrottenberg/ffmpeg.svg](https://hub.docker.com/r/lblanc/docker-influxdb-grafana-datacore/builds/)
 
