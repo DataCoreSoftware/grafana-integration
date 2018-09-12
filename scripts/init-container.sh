@@ -18,3 +18,5 @@ curl --silent --output /dev/null  -X POST \
   "database":"DataCoreRestDB",
   "access":"proxy"
 }'
+
+exit 0
