@@ -11,9 +11,6 @@ This is a Docker image based on the awesome [Docker Image with Telegraf (StatsD)
 Goal is to have grafana, influxdb and python script running to grab DataCore SANsymphony REST API performances
 
 
-## Build in progress
-
-
 ## Quick Start
 
 To start the container the first time launch:
@@ -30,7 +27,16 @@ docker run --ulimit nofile=66000:66000 \
   lblanc/docker-statsd-influxdb-grafana-datacore:latest
 ```
 
-You can replace `latest` with the desired version listed in changelog file.
+After the first run, connect in ssh to container and run config.sh with these parameters:
+-r -> DataCore REST server IP
+-d -> DataCore Server IP
+-u -> DataCore User
+-p -> DataCore Password
+
+Ex:
+```sh
+sh /etc/datacore/config.sh -r X.X.X.X -d X.X.X.X -u Administrator -p 123456
+```
 
 To stop the container launch:
 

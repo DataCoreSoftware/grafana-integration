@@ -1,5 +1,17 @@
 #!/bin/bash
 
+echo "change python script parameters"
+while getopts r:d:u:p: option
+do
+case "${option}"
+in
+r) sed -i 's/rest_server = rest-ip/rest_server = '${OPTARG}'/' /etc/datacore/datacore_get_perf.ini;;
+d) sed -i 's/datacore_server = dcs-ip/datacore_server = '${OPTARG}'/' /etc/datacore/datacore_get_perf.ini;;
+u) sed -i 's/user = user/user = '${OPTARG}'/' /etc/datacore/datacore_get_perf.ini;;
+p) sed -i 's/passwd = pass/passwd = '${OPTARG}'/' /etc/datacore/datacore_get_perf.ini;;
+esac
+done
+
 echo "Create Influxdb DataCore database"
 curl  --silent --output /dev/null -POST 'http://127.0.0.1:8086/query?pretty=true' --data-urlencode "q=CREATE DATABASE DataCoreRestDB WITH DURATION 6w REPLICATION 1"
 
@@ -15,7 +27,8 @@ curl --silent --output /dev/null  -X POST \
   "type":"influxdb",
   "url":"http://localhost:8086",
   "database":"DataCoreRestDB",
-  "access":"proxy"
+  "access":"proxy",
+  "isdefault":true
 }'
 
 echo "Create Grafana DataCore Dashboard"
@@ -3783,4 +3796,7 @@ curl  --silent --output /dev/null  -X PUT \
     "homeDashboardId": 1,
     "timezone": ""
 }'
+
+
+
 exit 0

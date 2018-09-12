@@ -102,8 +102,8 @@ COPY grafana/grafana.ini /etc/grafana/grafana.ini
 # Copy files for DataCore
 COPY datacore/datacore_get_perf.py /etc/datacore/datacore_get_perf.py
 COPY datacore/datacore_get_perf.ini /etc/datacore/datacore_get_perf.ini
-COPY system/datacore-cron /etc/cron.d/datacore-cron
-RUN chmod 0644 /etc/cron.d/datacore-cron
+COPY system/datacore-cron /tmp/datacore-cron
+RUN cat /tmp/datacore-cron >> /etc/crontab
 COPY scripts/config.sh /etc/datacore/config.sh
 
 
