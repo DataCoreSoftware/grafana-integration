@@ -27,7 +27,6 @@ curl  --silent --output /dev/null  -X POST \
   -H 'Authorization: Basic Z3JhZmFuYTpncmFmYW5h' \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: 6268ac26-b8ad-4ad5-9659-a9a8bd295c27' \
   -d '{
   "dashboard": {
   "__inputs": [
@@ -3781,7 +3780,6 @@ curl  --silent --output /dev/null  -X PUT \
   -H 'Authorization: Basic Z3JhZmFuYTpncmFmYW5h' \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
-  -H 'Postman-Token: f10ca1a9-7def-4135-b245-b17829b93ad1' \
   -d '{
     "theme": "",
     "homeDashboardId": 1,
