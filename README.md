@@ -1,5 +1,9 @@
 # Docker Image with Telegraf, InfluxDB and Grafana with [DataCore SANsymphony](http://www.datacore.com) 's dashboard & REST script included
 
+[![Docker Automated Build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)]https://hub.docker.com/r/lblanc/docker-influxdb-grafana-datacore/builds/
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://octopress.mit-license.org)
+
+
 This is a Docker image based on the awesome [Docker Image with Telegraf (StatsD), InfluxDB and Grafana](https://github.com/samuelebistoletti/docker-statsd-influxdb-grafana) from [Samuele Bistoletti](https://github.com/samuelebistoletti).
 
 Goal is to have grafana, influxdb and python script running to grab DataCore SANsymphony REST API performances
