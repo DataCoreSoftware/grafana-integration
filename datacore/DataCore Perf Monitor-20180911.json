@@ -1,7 +1,7 @@
 {
   "__inputs": [
     {
-      "name": "DS_DATACORERESTDB",
+      "name": "DataCoreRestDB",
       "label": "DataCoreRestDB",
       "description": "",
       "type": "datasource",
@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1536702149899,
+  "iteration": 1536777772689,
   "links": [
     {
       "asDropdown": true,
@@ -83,44 +83,11 @@
       "type": "row"
     },
     {
-      "alert": {
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                1000
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "frequency": "60s",
-        "handler": 1,
-        "name": "IOPS alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_DATACORERESTDB}",
+      "datasource": "DataCoreRestDB",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -404,15 +371,7 @@
           ]
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 1000
-        }
-      ],
+      "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
       "title": "IOPS",
@@ -458,7 +417,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_DATACORERESTDB}",
+      "datasource": "DataCoreRestDB",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -607,7 +566,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_DATACORERESTDB}",
+      "datasource": "DataCoreRestDB",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -973,7 +932,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_DATACORERESTDB}",
+      "datasource": "DataCoreRestDB",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -1111,7 +1070,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_DATACORERESTDB}",
+          "datasource": "DataCoreRestDB",
           "fill": 1,
           "gridPos": {
             "h": 9,
@@ -1360,7 +1319,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_DATACORERESTDB}",
+          "datasource": "DataCoreRestDB",
           "fill": 1,
           "gridPos": {
             "h": 9,
@@ -1609,7 +1568,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_DATACORERESTDB}",
+      "datasource": "DataCoreRestDB",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -1862,7 +1821,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_DATACORERESTDB}",
+      "datasource": "DataCoreRestDB",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -2161,7 +2120,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_DATACORERESTDB}",
+          "datasource": "DataCoreRestDB",
           "fill": 1,
           "gridPos": {
             "h": 9,
@@ -2468,7 +2427,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_DATACORERESTDB}",
+          "datasource": "DataCoreRestDB",
           "fill": 1,
           "gridPos": {
             "h": 9,
@@ -2774,7 +2733,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_DATACORERESTDB}",
+          "datasource": "DataCoreRestDB",
           "fill": 1,
           "gridPos": {
             "h": 9,
@@ -3078,7 +3037,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_DATACORERESTDB}",
+          "datasource": "DataCoreRestDB",
           "fill": 1,
           "gridPos": {
             "h": 9,
@@ -3328,7 +3287,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_DATACORERESTDB}",
+          "datasource": "DataCoreRestDB",
           "fill": 1,
           "gridPos": {
             "h": 11,
@@ -3645,7 +3604,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_DATACORERESTDB}",
+        "datasource": "DataCoreRestDB",
         "hide": 0,
         "includeAll": true,
         "label": "DataCore Servers",
@@ -3665,7 +3624,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_DATACORERESTDB}",
+        "datasource": "DataCoreRestDB",
         "hide": 0,
         "includeAll": true,
         "label": "DataCore Virtual Disks",
@@ -3685,7 +3644,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_DATACORERESTDB}",
+        "datasource": "DataCoreRestDB",
         "hide": 0,
         "includeAll": true,
         "label": "DataCore Disk Pools",
@@ -3705,7 +3664,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_DATACORERESTDB}",
+        "datasource": "DataCoreRestDB",
         "hide": 0,
         "includeAll": true,
         "label": "DataCore Physical Disk",
@@ -3725,7 +3684,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_DATACORERESTDB}",
+        "datasource": "DataCoreRestDB",
         "hide": 0,
         "includeAll": true,
         "label": "DataCore SCSI Ports",
@@ -3733,26 +3692,6 @@
         "name": "DataCore_SCSI_Ports",
         "options": [],
         "query": "SHOW TAG VALUES WITH KEY = \"instance\" WHERE \"objectname\" = 'DataCore SCSI ports'",
-        "refresh": 1,
-        "regex": "",
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {},
-        "datasource": "${DS_DATACORERESTDB}",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Monitor State",
-        "multi": true,
-        "name": "State",
-        "options": [],
-        "query": "SHOW TAG VALUES FROM \"DataCore_Monitors\" WITH KEY = \"State\"",
         "refresh": 1,
         "regex": "",
         "sort": 0,
@@ -3796,5 +3735,5 @@
   "timezone": "",
   "title": "DataCore Perf Monitor",
   "uid": "000000026",
-  "version": 42
+  "version": 1
 }
