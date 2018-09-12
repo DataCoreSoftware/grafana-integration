@@ -5,7 +5,7 @@ This is a Docker image based on the awesome [Docker Image with Telegraf (StatsD)
 Goal is to have grafana, influxdb and python script running to grab DataCore SANsymphony REST API performances
 
 
-## Build in progress ....
+## Build in progress
 
 
 ## Quick Start
