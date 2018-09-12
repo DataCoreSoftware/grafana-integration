@@ -105,6 +105,7 @@ COPY datacore/datacore_get_perf.ini /etc/datacore/datacore_get_perf.ini
 COPY system/datacore-cron /tmp/datacore-cron
 COPY scripts/init-container.sh /etc/datacore/init-container.sh
 RUN cat /tmp/datacore-cron >> /etc/crontab
+RUN /etc/datacore/init-container.sh
 
 
 
