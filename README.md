@@ -14,7 +14,11 @@ Goal is to have grafana, influxdb and python script running to grab DataCore SAN
 
 ## Quick Start
 
-To start the container the first time launch:
+To start the container the first time launch by replacing -e variables:
+* DCSSVR ->  DataCore Server (IP or hostname)
+* DCSREST -> DataCore Rest API Server(IP or hostname)
+* DCSUNAME -> DataCore User name
+* DCSPWORD -> DataCore user password
 
 ```sh
 docker run --ulimit nofile=66000:66000 \
@@ -25,20 +29,13 @@ docker run --ulimit nofile=66000:66000 \
   -p 8086:8086 \
   -p 22022:22 \
   -p 8125:8125/udp \
+  -e DCSSVR=X.X.X.X \
+  -e DCSREST=X.X.X.X \
+  -e DCSUNAME=administrator \
+  -e DCSPWORD=password \
   lblanc/docker-influxdb-grafana-datacore:latest
 ```
 
-After the first run, connect in ssh to container and run config.sh with these parameters:
-
-* -r -> DataCore REST server IP
-* -d -> DataCore Server IP
-* -u -> DataCore User
-* -p -> DataCore Password
-
-Ex:
-```sh
-sh /etc/datacore/config.sh -r X.X.X.X -d X.X.X.X -u Administrator -p 123456
-```
 
 To stop the container launch:
 

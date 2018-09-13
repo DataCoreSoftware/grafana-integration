@@ -105,11 +105,11 @@ COPY datacore/datacore_get_perf.ini /etc/datacore/datacore_get_perf.ini
 COPY system/datacore-cron /tmp/datacore-cron
 RUN cat /tmp/datacore-cron >> /etc/crontab
 COPY scripts/config.sh /etc/datacore/config.sh
-
+COPY scripts/supervisor.sh /etc/datacore/supervisor.sh
 
 
 # Cleanup
 RUN apt-get clean && \
  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/etc/datacore/supervisor.sh"]
