@@ -118,8 +118,8 @@ RUN cat /tmp/datacore-cron >> /etc/crontab
 
 # Configure Datacore DashBoard
 RUN /etc/init.d/influxdb start && sleep 5
-RUN /etc/init.d/grafana-server start
-RUN service mysql start
+RUN service mysql start && sleep 5
+RUN /etc/init.d/grafana-server start && sleep 5
 RUN /etc/datacore/config.sh
 
 # Cleanup
