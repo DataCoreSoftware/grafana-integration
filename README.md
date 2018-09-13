@@ -37,14 +37,14 @@ docker run --ulimit nofile=66000:66000 \
 ```
 
 
-To stop the container launch:
 
+To stop the container launch:
 ```sh
 docker stop grafana-datacore
 ```
 
-To start the container again launch:
 
+To start the container again launch:
 ```sh
 docker start grafana-datacore
 ```
@@ -60,12 +60,15 @@ Host		Container		Service
 8125		8125			statsd
 22022		22        sshd
 ```
+
+
 ## SSH
 
 ```sh
 ssh root@localhost -p 22022
 ```
 Password: root
+
 
 ## Grafana
 
