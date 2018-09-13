@@ -14,7 +14,7 @@ Goal is to have grafana, influxdb and python script running to grab DataCore SAN
 
 ## Quick Start
 
-To start the container the first time launch by replacing -e variables:
+To start the container the first time launch this by replacing -e variables:
 * DCSSVR ->  DataCore Server (IP or hostname)
 * DCSREST -> DataCore Rest API Server(IP or hostname)
 * DCSUNAME -> DataCore User name
