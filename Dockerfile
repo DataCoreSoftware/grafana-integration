@@ -18,6 +18,7 @@ ENV INFLUXDB_VERSION 1.6.2
 ENV GRAFANA_VERSION  5.2.4
 ENV CHRONOGRAF_VERSION 1.6.2
 
+
 # Copy files for DataCore
 COPY datacore/datacore_get_perf.py /etc/datacore/datacore_get_perf.py
 COPY datacore/datacore_get_perf.ini /etc/datacore/datacore_get_perf.ini
@@ -25,10 +26,10 @@ COPY scripts/config.sh /etc/datacore/config.sh
 COPY scripts/supervisor.sh /etc/datacore/supervisor.sh
 
 # Change python script parameters"
-RUN sed -i 's/rest_server = rest-ip/rest_server = '${DCSSVR}'/' /etc/datacore/datacore_get_perf.ini
-RUN sed -i 's/datacore_server = dcs-ip/datacore_server = '${DCSREST}'/' /etc/datacore/datacore_get_perf.ini
-RUN sed -i 's/user = user/user = '${DCSUNAME}'/' /etc/datacore/datacore_get_perf.ini
-RUN sed -i 's/passwd = pass/passwd = '${DCSPWORD}'/' /etc/datacore/datacore_get_perf.ini
+RUN sed -i 's/rest_server = rest-ip/rest_server = ${DCSSVR}/' /etc/datacore/datacore_get_perf.ini
+RUN sed -i 's/datacore_server = dcs-ip/datacore_server = ${DCSREST}/' /etc/datacore/datacore_get_perf.ini
+RUN sed -i 's/user = user/user = ${DCSUNAME}/' /etc/datacore/datacore_get_perf.ini
+RUN sed -i 's/passwd = pass/passwd = ${DCSPWORD}/' /etc/datacore/datacore_get_perf.ini
 
 
 # Fix bad proxy issue
@@ -121,4 +122,4 @@ RUN cat /tmp/datacore-cron >> /etc/crontab
 RUN apt-get clean && \
  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-CMD ["/etc/datacore/supervisor.sh"]
+CMD ["sh /etc/datacore/supervisor.sh"]
