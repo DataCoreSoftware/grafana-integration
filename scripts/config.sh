@@ -3786,4 +3786,4 @@ curl  --silent --output /dev/null  -X PUT \
     "timezone": ""
 }'
 
-exit 0
+ exec "$@"

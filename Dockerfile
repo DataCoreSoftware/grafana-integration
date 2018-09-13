@@ -20,25 +20,23 @@ ENV CHRONOGRAF_VERSION 1.6.2
 
 
 # Copy files for DataCore
-COPY datacore/datacore_get_perf.py /etc/datacore/datacore_get_perf.py
+COPY datacore/config.sh /etc/datacore/config.sh
 COPY datacore/datacore_get_perf.ini /etc/datacore/datacore_get_perf.ini
-COPY scripts/config.sh /etc/datacore/config.sh
+COPY datacore/datacore_get_perf.py /etc/datacore/datacore_get_perf.py
+COPY datacore/setup_mysql.sh /etc/datacore/setup_mysql.sh
+COPY system/datacore-cron /tmp/datacore-cron
+
 
 # Change python script parameters"
-RUN sed -i 's/rest_server = rest-ip/rest_server = ${DCSSVR}/' /etc/datacore/datacore_get_perf.ini
-RUN sed -i 's/datacore_server = dcs-ip/datacore_server = ${DCSREST}/' /etc/datacore/datacore_get_perf.ini
-RUN sed -i 's/user = user/user = ${DCSUNAME}/' /etc/datacore/datacore_get_perf.ini
-RUN sed -i 's/passwd = pass/passwd = ${DCSPWORD}/' /etc/datacore/datacore_get_perf.ini
+RUN sed -i 's/rest_server = rest-ip/rest_server = ${DCSSVR}/' /etc/datacore/datacore_get_perf.ini && \
+sed -i 's/datacore_server = dcs-ip/datacore_server = ${DCSREST}/' /etc/datacore/datacore_get_perf.ini && \
+sed -i 's/user = user/user = ${DCSUNAME}/' /etc/datacore/datacore_get_perf.ini && \
+sed -i 's/passwd = pass/passwd = ${DCSPWORD}/' /etc/datacore/datacore_get_perf.ini
 
-
-# Fix bad proxy issue
-COPY system/99fixbadproxy /etc/apt/apt.conf.d/99fixbadproxy
-
-# Clear previous sources
-RUN rm /var/lib/apt/lists/* -vf
 
 # Base dependencies
-RUN apt-get -y update && \
+RUN rm /var/lib/apt/lists/* -vf && \
+ apt-get -y update && \
  apt-get -y dist-upgrade && \
  apt-get -y --force-yes install \
   apt-utils \
@@ -63,7 +61,7 @@ RUN apt-get -y update && \
  curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
  apt-get install -y nodejs
 
-# Configure Supervisord, SSH and base env
+# Configure Supervisord, SSH, base env, cron and MySql
 COPY supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 WORKDIR /root
@@ -74,16 +72,14 @@ RUN mkdir -p /var/log/supervisor && \
     echo 'root:root' | chpasswd && \
     rm -rf .ssh && \
     rm -rf .profile && \
-    mkdir .ssh
+    mkdir .ssh && \
+    cat /tmp/datacore-cron >> /etc/crontab && \
+    /etc/datacore/setup_mysql.sh
+
 
 COPY ssh/authorized_keys .ssh/authorized_keys
 COPY bash/bashrc .bashrc
 
-
-# Configure MySql
-COPY scripts/setup_mysql.sh /tmp/setup_mysql.sh
-
-RUN /tmp/setup_mysql.sh
 
 # Install InfluxDB
 RUN wget https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb && \
@@ -112,9 +108,6 @@ RUN wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_${G
 # Configure Grafana
 COPY grafana/grafana.ini /etc/grafana/grafana.ini
 
-# Configure cron
-COPY system/datacore-cron /tmp/datacore-cron
-RUN cat /tmp/datacore-cron >> /etc/crontab
 
 # Cleanup
 RUN apt-get clean && \
