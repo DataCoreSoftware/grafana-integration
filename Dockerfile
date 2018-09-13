@@ -107,6 +107,12 @@ RUN cat /tmp/datacore-cron >> /etc/crontab
 COPY scripts/config.sh /etc/datacore/config.sh
 COPY scripts/supervisor.sh /etc/datacore/supervisor.sh
 
+# Change python script parameters"
+RUN sed -i 's/rest_server = rest-ip/rest_server = '${DCSSVR}'/' /etc/datacore/datacore_get_perf.ini;;
+RUN sed -i 's/datacore_server = dcs-ip/datacore_server = '${DCSREST}'/' /etc/datacore/datacore_get_perf.ini;;
+RUN sed -i 's/user = user/user = '${DCSUNAME}'/' /etc/datacore/datacore_get_perf.ini;;
+RUN sed -i 's/passwd = pass/passwd = '${DCSPWORD}'/' /etc/datacore/datacore_get_perf.ini;;
+
 
 # Cleanup
 RUN apt-get clean && \
