@@ -25,7 +25,7 @@ docker run --ulimit nofile=66000:66000 \
   -p 8086:8086 \
   -p 22022:22 \
   -p 8125:8125/udp \
-  lblanc/docker-statsd-influxdb-grafana-datacore:latest
+  lblanc/docker-influxdb-grafana-datacore:latest
 ```
 
 After the first run, connect in ssh to container and run config.sh with these parameters:
