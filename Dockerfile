@@ -20,10 +20,10 @@ ENV CHRONOGRAF_VERSION 1.6.2
 
 
 # Copy files for DataCore
-COPY datacore/config.sh /etc/datacore/config.sh
-COPY datacore/datacore_get_perf.ini /etc/datacore/datacore_get_perf.ini
-COPY datacore/datacore_get_perf.py /etc/datacore/datacore_get_perf.py
-COPY datacore/setup_mysql.sh /etc/datacore/setup_mysql.sh
+COPY scripts/config.sh /etc/datacore/config.sh
+COPY scripts/datacore_get_perf.ini /etc/datacore/datacore_get_perf.ini
+COPY scripts/datacore_get_perf.py /etc/datacore/datacore_get_perf.py
+COPY scripts/setup_mysql.sh /etc/datacore/setup_mysql.sh
 COPY system/datacore-cron /tmp/datacore-cron
 
 
