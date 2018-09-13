@@ -23,7 +23,6 @@ ENV CHRONOGRAF_VERSION 1.6.2
 COPY datacore/datacore_get_perf.py /etc/datacore/datacore_get_perf.py
 COPY datacore/datacore_get_perf.ini /etc/datacore/datacore_get_perf.ini
 COPY scripts/config.sh /etc/datacore/config.sh
-COPY scripts/supervisor.sh /etc/datacore/supervisor.sh
 
 # Change python script parameters"
 RUN sed -i 's/rest_server = rest-ip/rest_server = ${DCSSVR}/' /etc/datacore/datacore_get_perf.ini
@@ -117,9 +116,14 @@ COPY grafana/grafana.ini /etc/grafana/grafana.ini
 COPY system/datacore-cron /tmp/datacore-cron
 RUN cat /tmp/datacore-cron >> /etc/crontab
 
+# Configure Datacore DashBoard
+RUN /etc/init.d/influxdb start && sleep 5
+RUN /etc/init.d/grafana-server start
+RUN service mysql start
+RUN /etc/datacore/config.sh
 
 # Cleanup
 RUN apt-get clean && \
  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-CMD ["sh /etc/datacore/supervisor.sh"]
+CMD ["/usr/bin/supervisord"]
