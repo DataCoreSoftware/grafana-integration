@@ -3786,6 +3786,4 @@ curl  --silent --output /dev/null  -X PUT \
     "timezone": ""
 }'
 
-rm /etc/datacore/config.sh
-
 exit 0
