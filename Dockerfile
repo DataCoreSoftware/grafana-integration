@@ -116,13 +116,10 @@ COPY grafana/grafana.ini /etc/grafana/grafana.ini
 COPY system/datacore-cron /tmp/datacore-cron
 RUN cat /tmp/datacore-cron >> /etc/crontab
 
-# Configure Datacore DashBoard
-RUN /etc/init.d/influxdb start && sleep 5
-RUN service mysql start && sleep 5
-RUN /etc/datacore/config.sh
-
 # Cleanup
 RUN apt-get clean && \
  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ENTRYPOINT ["/etc/datacore/config.sh"]
 
 CMD ["/usr/bin/supervisord"]
