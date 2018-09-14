@@ -5,6 +5,8 @@ sed -i 's/rest_server = rest-ip/rest_server = '${DCSSVR}'/' /etc/datacore/dataco
 sed -i 's/user = user/user = '${DCSUNAME}'/' /etc/datacore/datacore_get_perf.ini && \
 sed -i 's/passwd = pass/passwd = '${DCSPWORD}'/' /etc/datacore/datacore_get_perf.ini
 
+/etc/init.d/grafana-server start
+
 sleep 10
 
 echo "Create Influxdb DataCore database"
