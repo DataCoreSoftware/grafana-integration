@@ -1,7 +1,5 @@
 #!/bin/bash
 
-/usr/bin/supervisord && sleep 10
-
 echo "Create Influxdb DataCore database"
 curl  --silent --output /dev/null -POST 'http://127.0.0.1:8086/query?pretty=true' --data-urlencode "q=CREATE DATABASE DataCoreRestDB WITH DURATION 6w REPLICATION 1"
 
@@ -3787,4 +3785,4 @@ curl  --silent --output /dev/null  -X PUT \
     "timezone": ""
 }'
 
- exec "$@"
+rm /etc/datacore/config.sh

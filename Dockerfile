@@ -113,6 +113,4 @@ COPY grafana/grafana.ini /etc/grafana/grafana.ini
 RUN apt-get clean && \
  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENTRYPOINT ["/etc/datacore/config.sh"]
-
 CMD ["/usr/bin/supervisord"]
