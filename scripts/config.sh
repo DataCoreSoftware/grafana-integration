@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sed -i 's/datacore_server = dcs-ip/datacore_server = '${DCSREST}'/' /etc/datacore/datacore_get_perf.ini && \
-sed -i 's/rest_server = rest-ip/rest_server = '${DCSSVR}'/' /etc/datacore/datacore_get_perf.ini && \
+sed -i 's/datacore_server = dcs-ip/datacore_server = '${DCSSVR}'/' /etc/datacore/datacore_get_perf.ini && \
+sed -i 's/rest_server = rest-ip/rest_server = '${DCSREST}'/' /etc/datacore/datacore_get_perf.ini && \
 sed -i 's/user = user/user = '${DCSUNAME}'/' /etc/datacore/datacore_get_perf.ini && \
 sed -i 's/passwd = pass/passwd = '${DCSPWORD}'/' /etc/datacore/datacore_get_perf.ini
 
