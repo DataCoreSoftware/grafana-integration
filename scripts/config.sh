@@ -1,5 +1,10 @@
 #!/bin/bash
 
+sed -i 's/datacore_server = dcs-ip/datacore_server = '${DCSREST}'/' /etc/datacore/datacore_get_perf.ini && \
+sed -i 's/rest_server = rest-ip/rest_server = '${DCSSVR}'/' /etc/datacore/datacore_get_perf.ini && \
+sed -i 's/user = user/user = '${DCSUNAME}'/' /etc/datacore/datacore_get_perf.ini && \
+sed -i 's/passwd = pass/passwd = '${DCSPWORD}'/' /etc/datacore/datacore_get_perf.ini
+
 echo "Create Influxdb DataCore database"
 curl  --silent --output /dev/null -POST 'http://127.0.0.1:8086/query?pretty=true' --data-urlencode "q=CREATE DATABASE DataCoreRestDB WITH DURATION 6w REPLICATION 1"
 
@@ -3785,4 +3790,4 @@ curl  --silent --output /dev/null  -X PUT \
     "timezone": ""
 }'
 
-rm /etc/datacore/config.sh
+exec "$@"

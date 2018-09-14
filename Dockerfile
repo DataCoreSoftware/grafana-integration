@@ -55,12 +55,6 @@ RUN rm /var/lib/apt/lists/* -vf && \
  apt-get install -y nodejs
 
 
-# Change python script parameters"
-RUN sed -i 's/rest_server = rest-ip/rest_server = ${DCSSVR}/' /etc/datacore/datacore_get_perf.ini && \
-sed -i 's/datacore_server = dcs-ip/datacore_server = ${DCSREST}/' /etc/datacore/datacore_get_perf.ini && \
-sed -i 's/user = user/user = ${DCSUNAME}/' /etc/datacore/datacore_get_perf.ini && \
-sed -i 's/passwd = pass/passwd = ${DCSPWORD}/' /etc/datacore/datacore_get_perf.ini
-
 # Configure Supervisord, SSH, base env, cron and MySql
 COPY supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
@@ -113,4 +107,6 @@ COPY grafana/grafana.ini /etc/grafana/grafana.ini
 RUN apt-get clean && \
  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-CMD ["/usr/bin/supervisord"]
+ENTRYPOINT [ "/etc/datacore/config.sh" ]
+
+CMD [ "/usr/bin/supervisord" ]
