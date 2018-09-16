@@ -20,7 +20,7 @@ ENV CHRONOGRAF_VERSION 1.6.2
 ENV GO_VERSION 1.10
 
 # Go
-ENV GOPATH=$HOME/work
+ENV GOPATH=/root/work
 ENV PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
 
@@ -73,12 +73,14 @@ RUN mkdir -p /var/log/supervisor && \
 
 # Install Go
 RUN wget https://storage.googleapis.com/golang/go${GO_VERSION}.linux-amd64.tar.gz && \
-	tar xvf go${GO_VERSION}linux-amd64.tar.gz && \
+	tar xvf go${GO_VERSION}.linux-amd64.tar.gz && \
   chown -R root:root ./go && \
   mv go /usr/local
 
 # Install & configure vSphere-influxdb-go
-RUN go get github.com/vmware/govmomi && \
+RUN export GOPATH=/root/work && \
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin && \
+go get github.com/vmware/govmomi && \
 go get github.com/influxdata/influxdb/client/v2 && \
 go get github.com/oxalide/vsphere-influxdb-go
 
