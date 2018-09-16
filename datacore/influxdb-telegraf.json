@@ -1,7 +1,0 @@
-{
-  "name":"InfluxDB_telegraf",
-  "type":"influxdb",
-  "url":"http://localhost:8086",
-  "database":"telegraf",
-  "access":"proxy"
-}
