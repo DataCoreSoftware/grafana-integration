@@ -17,6 +17,11 @@ ENV TELEGRAF_VERSION 1.7.4-1
 ENV INFLUXDB_VERSION 1.6.2
 ENV GRAFANA_VERSION  5.2.4
 ENV CHRONOGRAF_VERSION 1.6.2
+ENV GO_VERSION 1.10
+
+# Go
+ENV GOPATH=/root/work
+ENV PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
 
 # Copy files for DataCore
@@ -60,12 +65,24 @@ RUN mkdir -p /var/log/supervisor && \
     mkdir -p /var/run/sshd && \
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     echo 'root:root' | chpasswd && \
-    rm -rf .ssh && \
-    rm -rf .profile && \
-    mkdir .ssh && \
     cat /etc/datacore/datacore-cron >> /etc/crontab && \
+    cat /etc/datacore/vsphere-cron >> /etc/crontab && \
     /etc/datacore/setup_mysql.sh && \
     chmod +x /etc/datacore/config.sh
+
+
+# Install Go
+RUN wget https://storage.googleapis.com/golang/go${GO_VERSION}.linux-amd64.tar.gz && \
+	tar xvf go${GO_VERSION}.linux-amd64.tar.gz && \
+  chown -R root:root ./go && \
+  mv go /usr/local
+
+# Install & configure vSphere-influxdb-go
+RUN export GOPATH=/root/work && \
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin && \
+go get github.com/vmware/govmomi && \
+go get github.com/influxdata/influxdb/client/v2 && \
+go get github.com/oxalide/vsphere-influxdb-go
 
 
 
