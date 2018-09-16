@@ -12,7 +12,7 @@ sleep 5
 echo "Create Influxdb DataCore database"
 curl  --silent --output /dev/null -POST 'http://127.0.0.1:8086/query?pretty=true' --data-urlencode "q=CREATE DATABASE DataCoreRestDB WITH DURATION 6w REPLICATION 1"
 
-echo "Create Grafana Data Source"
+echo "Create Grafana Data Sources"
 curl --silent --output /dev/null  -X POST \
   http://127.0.0.1:3000/api/datasources \
   -H 'Accept: application/json' \
@@ -20,6 +20,16 @@ curl --silent --output /dev/null  -X POST \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -d @/etc/datacore/influxdb-datacoredb.json
+
+curl --silent --output /dev/null  -X POST \
+  http://127.0.0.1:3000/api/datasources \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Basic Z3JhZmFuYTpncmFmYW5h' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -d @/etc/datacore/influxdb-telegraf.json
+
+
 
 echo "Create Grafana DataCore Dashboard"
 curl  --silent --output /dev/null  -X POST \
