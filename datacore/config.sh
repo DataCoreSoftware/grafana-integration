@@ -6,6 +6,11 @@ sed -i 's/user = user/user = '${DCSUNAME}'/' /etc/datacore/datacore_get_perf.ini
 sed -i 's/passwd = pass/passwd = '${DCSPWORD}'/' /etc/datacore/datacore_get_perf.ini
 
 
+sed -i 's/{ "Username": "user", "Password": "pass", "Hostname": "vcenter" }/{ "Username": "'${VSPHERE_USER}'", "Password": "'${VSPHERE_PASS}'", "Hostname": "'${VSPHERE_VCENTER}'" }/' /etc/datacore/vsphere-influxdb.json && \
+sed -i 's/"Domain": ".dom",/"Domain": ".'${VSPHERE_DOM}'",/' /etc/datacore/vsphere-influxdb.json
+
+
+
 find /var/lib/mysql -type f -exec touch {} \; && /etc/init.d/mysql start && sleep 5
 /etc/init.d/influxdb start && sleep 5
 /etc/init.d/grafana-server start && sleep 5
