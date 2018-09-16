@@ -20,10 +20,13 @@ ENV CHRONOGRAF_VERSION 1.6.2
 
 
 # Copy files for DataCore
-COPY scripts/config.sh /etc/datacore/config.sh
-COPY scripts/datacore_get_perf.ini /etc/datacore/datacore_get_perf.ini
-COPY scripts/datacore_get_perf.py /etc/datacore/datacore_get_perf.py
-COPY scripts/setup_mysql.sh /etc/datacore/setup_mysql.sh
+COPY datacore/config.sh /etc/datacore/config.sh
+COPY datacore/datacore_get_perf.ini /etc/datacore/datacore_get_perf.ini
+COPY datacore/datacore_get_perf.py /etc/datacore/datacore_get_perf.py
+COPY datacore/setup_mysql.sh /etc/datacore/setup_mysql.sh
+COPY datacore/influxdb-datacoredb.json /etc/datacore/influxdb-datacoredb.json
+COPY datacore/datacore-perf-monitor.json /etc/datacore/datacore-perf-monitor.json
+COPY datacore/default-home-dashboard.json /etc/datacore/default-home-dashboard.json
 COPY system/datacore-cron /tmp/datacore-cron
 
 
@@ -70,8 +73,6 @@ RUN mkdir -p /var/log/supervisor && \
     cat /tmp/datacore-cron >> /etc/crontab && \
     /etc/datacore/setup_mysql.sh
 
-
-COPY ssh/authorized_keys .ssh/authorized_keys
 COPY bash/bashrc .bashrc
 
 
