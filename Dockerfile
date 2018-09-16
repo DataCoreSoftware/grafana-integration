@@ -21,7 +21,6 @@ ENV CHRONOGRAF_VERSION 1.6.2
 
 # Copy files for DataCore
 COPY datacore/* /etc/datacore/
-COPY system/datacore-cron /tmp/datacore-cron
 
 
 # Base dependencies
@@ -64,10 +63,9 @@ RUN mkdir -p /var/log/supervisor && \
     rm -rf .ssh && \
     rm -rf .profile && \
     mkdir .ssh && \
-    cat /tmp/datacore-cron >> /etc/crontab && \
+    cat /etc/datacore/datacore-cron >> /etc/crontab && \
     /etc/datacore/setup_mysql.sh
 
-COPY bash/bashrc .bashrc
 
 
 # Install InfluxDB
