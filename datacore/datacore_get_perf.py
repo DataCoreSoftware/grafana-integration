@@ -152,19 +152,17 @@ def make_influxdb_line(data):
         elif 'hosts' in k:  # Special case
             continue
         elif 'servers' in k:
-            line = 'DataCore_State,objectname=DataCore\ Servers,host={} State={} {}'
+            line = 'DataCore_State,objectname=DataCore\ Servers,host={} State={}'
             result.append(line.format(
                 data[k]['Caption'].replace(' ', '\\ '),
                 data[k]['State'],
-                int(time.time())*1000000
             ))
             continue
         elif 'virtualdisks' in k:
-            line = 'DataCore_State,objectname=DataCore\ Virtual\ disks,instance={} State={} {}'
+            line = 'DataCore_State,objectname=DataCore\ Virtual\ disks,instance={} State={}'
             result.append(line.format(
                 data[k]['Caption'].replace(' ', '\\ '),
                 data[k]['DiskStatus'],
-                int(time.time())*1000000
             ))
             continue
         else:
@@ -190,7 +188,7 @@ def make_influxdb_line(data):
 
 def main():
     config = configparser.ConfigParser()
-    config.read('/etc/datacore/get_perf.ini')
+    config.read('/etc/datacore/datacore_get_perf.ini')
 
     if config['LOGGING'].getboolean('log'):
         logging.basicConfig(filename=config['LOGGING']['logfile'],
