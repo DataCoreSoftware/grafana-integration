@@ -8,6 +8,7 @@ in the server group. Then, add them to the Grafana InfluxDB server.
 
 
 import json
+import time
 import logging
 import configparser
 from concurrent.futures import ProcessPoolExecutor
@@ -40,6 +41,8 @@ def get_resource(args):
         logging.info('Done querying {} {}'.format(args['resource'], args.get('id', '')))
     else:
         logging.error('A problem occurs... Response code was {}'.format(r.status_code))
+
+
     return r.json()
 
 
@@ -83,28 +86,12 @@ def get_all(url, resources, headers):
             result[r] = res
 
     # Finally, we clean up the results and return them
+    
     for k, v in temp.items():
         for i in v:
             result['{}_{}'.format(k, i['Id'])] = i
     return result
 
-
-def to_str(i):
-    """
-    Helper that convert a monitor state int to a str.
-    """
-    if i == 1:
-        return "Undefined"
-    elif i == 2:
-        return "Healthy"
-    elif i == 4:
-        return "Attention"
-    elif i == 8:
-        return "Warning"
-    elif i == 16:
-        return "Critical"
-    else:
-        return "Undefined"
 
 
 def make_influxdb_line(data):
@@ -153,7 +140,32 @@ def make_influxdb_line(data):
                continue
             else:
                host = host.replace(' ', '\\ ')
+        elif 'monitors' in k:  # Special case
+            line = 'DataCore_Monitors,instance={},objectname={} State={} {}'
+            result.append(line.format(
+                data[k]['ExtendedCaption'].replace(' ', '\\ '),
+                data[k]['Caption'].replace(' ', '\\ '),
+                data[k]['State'],
+                int(data[k]['TimeStamp'][6:-7])*1000000
+            ))
+            continue
         elif 'hosts' in k:  # Special case
+            continue
+        elif 'servers' in k:
+            line = 'DataCore_State,objectname=DataCore\ Servers,host={} State={} {}'
+            result.append(line.format(
+                data[k]['Caption'].replace(' ', '\\ '),
+                data[k]['State'],
+                int(time.time())*1000000
+            ))
+            continue
+        elif 'virtualdisks' in k:
+            line = 'DataCore_State,objectname=DataCore\ Virtual\ disks,instance={} State={} {}'
+            result.append(line.format(
+                data[k]['Caption'].replace(' ', '\\ '),
+                data[k]['DiskStatus'],
+                int(time.time())*1000000
+            ))
             continue
         else:
             continue
@@ -178,7 +190,7 @@ def make_influxdb_line(data):
 
 def main():
     config = configparser.ConfigParser()
-    config.read('/etc/datacore/datacore_get_perf.ini')
+    config.read('/etc/datacore/get_perf.ini')
 
     if config['LOGGING'].getboolean('log'):
         logging.basicConfig(filename=config['LOGGING']['logfile'],
