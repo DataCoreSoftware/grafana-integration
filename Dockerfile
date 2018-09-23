@@ -29,7 +29,9 @@ COPY datacore/* /etc/datacore/
 
 
 # Base dependencies
-RUN rm /var/lib/apt/lists/* -vf && \
+RUN mkdir /data && mkdir /data/mysql && mkdir /data/influxdb && \
+ ln -s /data/mysql /var/lib/mysql && ln -s /data/influxdb /var/lib/influxdb && \
+ rm /var/lib/apt/lists/* -vf && \
  apt-get -y update && \
  apt-get -y dist-upgrade && \
  apt-get -y --force-yes install \
@@ -53,9 +55,8 @@ RUN rm /var/lib/apt/lists/* -vf && \
   cron \
   wget && \
  curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
- apt-get install -y nodejs && \
- mkdir /data && mkdir /data/mysql && mkdir /data/influxdb && \
- ln -s /data/mysql /var/lib/mysql && ln -s /data/influxdb /var/lib/influxdb
+ apt-get install -y nodejs 
+ 
 
 
 # Configure Supervisord, SSH, base env, cron and MySql
