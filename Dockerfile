@@ -53,7 +53,9 @@ RUN rm /var/lib/apt/lists/* -vf && \
   cron \
   wget && \
  curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
- apt-get install -y nodejs
+ apt-get install -y nodejs && \
+ mkdir /data && mkdir /data/mysql && mkdir /data/influxdb && \
+ ln -s /data/mysql /var/lib/mysql && ln -s /data/influxdb /var/lib/influxdb
 
 
 # Configure Supervisord, SSH, base env, cron and MySql
@@ -71,52 +73,44 @@ RUN mkdir -p /var/log/supervisor && \
     chmod +x /etc/datacore/config.sh
 
 
-# Install Go
+# Install Go / Install & configure vSphere-influxdb-go
 RUN wget https://storage.googleapis.com/golang/go${GO_VERSION}.linux-amd64.tar.gz && \
-	tar xvf go${GO_VERSION}.linux-amd64.tar.gz && \
+	tar xvf go${GO_VERSION}.linux-amd64.tar.gz && rm go${GO_VERSION}.linux-amd64.tar.gz && \
   chown -R root:root ./go && \
-  mv go /usr/local
-
-# Install & configure vSphere-influxdb-go
-RUN export GOPATH=/root/work && \
-export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin && \
-go get github.com/vmware/govmomi && \
-go get github.com/influxdata/influxdb/client/v2 && \
-go get github.com/oxalide/vsphere-influxdb-go
+  mv go /usr/local \
+  export GOPATH=/root/work && \
+  export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin && \
+  go get github.com/vmware/govmomi && \
+  go get github.com/influxdata/influxdb/client/v2 && \
+  go get github.com/oxalide/vsphere-influxdb-go
 
 
-
-# Install InfluxDB
+# Install InfluxDB / Telegraf / chronograf / Grafana
 RUN wget https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb && \
-	dpkg -i influxdb_${INFLUXDB_VERSION}_amd64.deb && rm influxdb_${INFLUXDB_VERSION}_amd64.deb
+	dpkg -i influxdb_${INFLUXDB_VERSION}_amd64.deb && rm influxdb_${INFLUXDB_VERSION}_amd64.deb && \
+  wget https://dl.influxdata.com/telegraf/releases/telegraf_${TELEGRAF_VERSION}_amd64.deb && \
+	dpkg -i telegraf_${TELEGRAF_VERSION}_amd64.deb && rm telegraf_${TELEGRAF_VERSION}_amd64.deb && \
+  wget https://dl.influxdata.com/chronograf/releases/chronograf_${CHRONOGRAF_VERSION}_amd64.deb && \
+  dpkg -i chronograf_${CHRONOGRAF_VERSION}_amd64.deb && rm chronograf_${CHRONOGRAF_VERSION}_amd64.deb && \
+  wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_${GRAFANA_VERSION}_amd64.deb && \
+	dpkg -i grafana_${GRAFANA_VERSION}_amd64.deb && rm grafana_${GRAFANA_VERSION}_amd64.deb
+
 
 # Configure InfluxDB
 COPY influxdb/init.sh /etc/init.d/influxdb
-
-
-# Install Telegraf
-RUN wget https://dl.influxdata.com/telegraf/releases/telegraf_${TELEGRAF_VERSION}_amd64.deb && \
-	dpkg -i telegraf_${TELEGRAF_VERSION}_amd64.deb && rm telegraf_${TELEGRAF_VERSION}_amd64.deb
 
 # Configure Telegraf
 COPY telegraf/telegraf.conf /etc/telegraf/telegraf.conf
 COPY telegraf/init.sh /etc/init.d/telegraf
 
-# Install chronograf
-RUN wget https://dl.influxdata.com/chronograf/releases/chronograf_${CHRONOGRAF_VERSION}_amd64.deb && \
-  dpkg -i chronograf_${CHRONOGRAF_VERSION}_amd64.deb
-
-# Install Grafana
-RUN wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_${GRAFANA_VERSION}_amd64.deb && \
-	dpkg -i grafana_${GRAFANA_VERSION}_amd64.deb && rm grafana_${GRAFANA_VERSION}_amd64.deb
-
 # Configure Grafana
 COPY grafana/grafana.ini /etc/grafana/grafana.ini
-
 
 # Cleanup
 RUN apt-get clean && \
  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+VOLUME [ "/data" ]
 
 ENTRYPOINT [ "/etc/datacore/config.sh" ]
 
