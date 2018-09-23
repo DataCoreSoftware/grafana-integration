@@ -29,8 +29,8 @@ COPY datacore/* /etc/datacore/
 
 
 # Base dependencies
-RUN mkdir /data && mkdir /data/mysql && mkdir /data/influxdb && \
- ln -s /data/mysql /var/lib/mysql && ln -s /data/influxdb /var/lib/influxdb && \
+RUN mkdir /data-docker && mkdir /data-docker/mysql && mkdir /data-docker/influxdb && \
+ ln -s /data-docker/mysql /var/lib/mysql && ln -s /data-docker/influxdb /var/lib/influxdb && \
  rm /var/lib/apt/lists/* -vf && \
  apt-get -y update && \
  apt-get -y dist-upgrade && \

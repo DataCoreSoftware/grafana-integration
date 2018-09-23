@@ -10,6 +10,14 @@ sed -i 's/{ "Username": "user", "Password": "pass", "Hostname": "vcenter" }/{ "U
 sed -i 's/"Domain": ".dom",/"Domain": ".'${VSPHERE_DOM}'",/' /etc/datacore/vsphere-influxdb-go.json && \
 mv /etc/datacore/vsphere-influxdb-go.json /etc/vsphere-influxdb-go.json
 
+if [ -d "/data" ]; then
+  rm /var/lib/influxdb
+  rm /var/lib/mysql 
+  mv /data-docker/influxdb /data/
+  mv /data-docker/mysql /data/
+  ln -s /data/mysql /var/lib/mysql
+  ln -s /data/influxdb /var/lib/influxdb
+fi
 
 find /var/lib/mysql -type f -exec touch {} \; && /etc/init.d/mysql start && sleep 5
 /etc/init.d/influxdb start && sleep 5
