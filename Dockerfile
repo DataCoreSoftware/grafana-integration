@@ -78,7 +78,7 @@ RUN mkdir -p /var/log/supervisor && \
 RUN wget https://storage.googleapis.com/golang/go${GO_VERSION}.linux-amd64.tar.gz && \
 	tar xvf go${GO_VERSION}.linux-amd64.tar.gz && rm go${GO_VERSION}.linux-amd64.tar.gz && \
   chown -R root:root ./go && \
-  mv go /usr/local \
+  mv go /usr/local && \
   export GOPATH=/root/work && \
   export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin && \
   go get github.com/vmware/govmomi && \
