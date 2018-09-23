@@ -18,6 +18,11 @@ if [ -d "/data" ]; then
   mv /data-docker/mysql /data/
   ln -s /data/mysql /var/lib/mysql
   ln -s /data/influxdb /var/lib/influxdb
+  else
+  rm /var/lib/influxdb
+  rm /var/lib/mysql 
+  ln -s /data/mysql /var/lib/mysql
+  ln -s /data/influxdb /var/lib/influxdb
   fi
 fi
 
