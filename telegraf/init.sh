@@ -21,7 +21,7 @@
 # and expect the args to be positioned correctly.
 
 # Command-line options that can be set in /etc/default/telegraf.  These will override
-# any config file values.
+# any config file values. 
 TELEGRAF_OPTS=
 
 USER=telegraf
