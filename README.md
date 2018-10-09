@@ -1,7 +1,6 @@
 ## Docker Image with Telegraf, InfluxDB and Grafana with dashboard & REST script included for [DataCore SANsymphony](http://www.datacore.com)
 
 
-[![](https://dockerbuildbadges.quelltext.eu/status.svg?organization=lblanc&grafana-integration)](https://hub.docker.com/r/lblanc/grafana-integration/builds/)
 
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://octopress.mit-license.org)
 
