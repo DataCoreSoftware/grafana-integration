@@ -35,7 +35,7 @@ def get_resource(args):
     else:
         s = '{}/{}'.format(args['url'], args['resource'])
 
-    r = requests.get(s, headers=args['headers'])
+    r = requests.get(s, headers=args['headers'], verify=False)
     if r.status_code == 200:
         logging.info('Done querying {} {}'.format(args['resource'], args.get('id', '')))
     else:
@@ -187,7 +187,7 @@ def main():
     else:
         logging.basicConfig(format='%(asctime)s - %(message)s')
 
-    url = "http://{}/RestService/rest.svc/1.0/".format(config['SERVERS']['rest_server'])
+    url = "https://{}/RestService/rest.svc/1.0/".format(config['SERVERS']['rest_server'])
     headers = {'ServerHost': config['SERVERS']['datacore_server'],
                'Authorization': 'Basic {} {}'.format(config['CREDENTIALS']['user'],
                                                      config['CREDENTIALS']['passwd'])}
@@ -218,4 +218,3 @@ def main():
 if __name__ == '__main__':
     main()
     exit(0)
-
